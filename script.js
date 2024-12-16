@@ -2,6 +2,7 @@ let answer;
 let numberOne;
 let operator;
 let numberTwo;
+let input;
 function plus(a, b) {
   return a + b;
 }
@@ -30,4 +31,18 @@ function calculate(numberOne, operator, numberTwo) {
   }
 }
 
-const clear = document.querySelector("#clear");
+function buttonContent(cont) {
+  if (display.textContent === "0") {
+    display.textContent = cont;
+  } else {
+    display.textContent += cont;
+  }
+  input = display.textContent;
+}
+const display = document.querySelector("#results");
+const numbers = document.querySelectorAll(".green");
+numbers.forEach((number) =>
+  number.addEventListener("click", () =>
+    buttonContent(event.target.textContent)
+  )
+);
