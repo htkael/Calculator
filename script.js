@@ -29,3 +29,5 @@ function calculate(numberOne, operator, numberTwo) {
     return divide(numberOne, numberTwo);
   }
 }
+
+const clear = document.querySelector("#clear");
