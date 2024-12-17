@@ -21,23 +21,37 @@ function divide(a, b) {
 }
 function calculate(numberOne, operator, numberTwo) {
   if (operator === "+") {
-    return plus(numberOne, numberTwo);
+    return plus(Number(numberOne), Number(numberTwo));
   } else if (operator === "-") {
-    return minus(numberOne, numberTwo);
+    return minus(Number(numberOne), Number(numberTwo));
   } else if (operator === "*") {
-    return times(numberOne, numberTwo);
+    return times(Number(numberOne), Number(numberTwo));
   } else if (operator === "/") {
-    return divide(numberOne, numberTwo);
+    return divide(Number(numberOne), Number(numberTwo));
   }
 }
 
 function buttonContent(cont) {
-  if (display.textContent === "0") {
-    display.textContent = cont;
+  if (numberOne === undefined) {
+    if (display.textContent.length < 9) {
+      if (display.textContent === "0") {
+        display.textContent = cont;
+      } else {
+        display.textContent += cont;
+      }
+      input = display.textContent;
+    } else {
+      console.log("Sorry, no more numbers");
+    }
   } else {
-    display.textContent += cont;
+    if (input === 0) {
+      display.textContent = cont;
+      input = display.textContent;
+    } else {
+      display.textContent += cont;
+      input = display.textContent;
+    }
   }
-  input = display.textContent;
 }
 const display = document.querySelector("#results");
 const numbers = document.querySelectorAll(".green");
@@ -46,3 +60,24 @@ numbers.forEach((number) =>
     buttonContent(event.target.textContent)
   )
 );
+
+const operators = document.querySelectorAll(".orange");
+operators.forEach((compute) =>
+  compute.addEventListener("click", () => {
+    operator = event.target.textContent;
+    numberOne = input;
+    input = 0;
+  })
+);
+
+const equals = document.querySelector("#equals");
+equals.addEventListener("click", () => {
+  if (numberOne !== undefined) {
+    numberTwo = input;
+    display.textContent = calculate(numberOne, operator, numberTwo);
+    numberOne = display.textContent;
+    operator = undefined;
+    numberTwo = undefined;
+    input = numberOne;
+  }
+});
